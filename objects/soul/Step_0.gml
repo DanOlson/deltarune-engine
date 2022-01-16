@@ -1,0 +1,52 @@
+var SPD=2.5;
+
+if(keyboard_check(vk_up)){
+	repeat(SPD*10){
+		if(!place_meeting(x,y-0.1,board)){
+			y-=0.1;
+		}else{
+			break;
+		}
+	}
+}
+if(keyboard_check(vk_down)){
+	repeat(SPD*10){
+		if(!place_meeting(x,y+0.1,board)){
+			y+=0.1;
+		}else{
+			break;
+		}
+	}
+}
+if(keyboard_check(vk_left)){
+	repeat(SPD*10){
+		if(!place_meeting(x-0.1,y,board)){
+			x-=0.1;
+		}else{
+			break;
+		}
+	}
+}
+if(keyboard_check(vk_right)){
+	repeat(SPD*10){
+		if(!place_meeting(x+0.1,y,board)){
+			x+=0.1;
+		}else{
+			break;
+		}
+	}
+}
+
+
+if(_inv>0){
+	_inv-=1;
+	if(image_speed==0){
+		image_speed=1/2;
+		image_index=1;
+	}
+}else{
+	if(image_speed!=0){
+		image_speed=0;
+		image_index=0;
+	}
+}
