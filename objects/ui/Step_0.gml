@@ -68,10 +68,33 @@ else if (_phase == 1) {
 			}
 		}
 	} else {
+		// kris is fighting
 		if (kris.action_choice == 0) {
 			var kris_data = variable_struct_get(hero_data, kris);
-			if (kris_data.fight_bar_x > 1) {
+			var actual_damage = 0; // start with zero and adjust as needed
+			if (!kris.did_attack && keyboard_check_pressed(vk_enter)) {
+				// calculate how close the fight bar was, derived from kris.max_damage
+				// and the fight_bar_x compared to target
+				var target = 57;
+				var position = kris_data.fight_bar_x - target;
+				if (position >= 0 && position < 100) {
+					var damage_percent = (100 - position) / 100;
+					actual_damage = kris.max_damage * damage_percent;
+					kris._damage = actual_damage;
+					kris.alarm[2] = 1;
+				} else if (position < 0) {
+					kris._damage = actual_damage;
+					kris.alarm[2] = 1;
+				}
+				kris.did_attack = true;
+			}
+			// move the fight bar to the left
+			if (kris_data.fight_bar_x > 6) {
 				kris_data.fight_bar_x -= 6;
+			} else if (!kris.did_attack) {
+				kris.action_choice = undefined;
+				kris._damage = actual_damage;
+				kris.alarm[2] = 1;
 			}
 		}
 	}

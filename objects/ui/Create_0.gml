@@ -68,8 +68,8 @@ variable_struct_set(hero_data, ralsei, {
 	fight_bar_x: 600
 });
 
-fight_bar_trail_steps = array_create(10);
-for (i = 60; i < 600; i += 60) {
+fight_bar_trail_steps = array_create(30);
+for (i = 20; i < 600; i += 20) {
 	array_push(fight_bar_trail_steps, i);
 }
 

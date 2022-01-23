@@ -77,10 +77,11 @@ if (_phase == 1 && kris.action_choice == 0 && !_choosing) {
 			1
 		);
 		
+		// loop over fight_bar_trail_steps in reverse
 		for (i = array_length(fight_bar_trail_steps) - 1; i > 0; i--) {
 			var x_pos = fight_bar_trail_steps[i];
 			if (x_pos > kris_data.fight_bar_x) {
-				var alpha_value = (array_length(fight_bar_trail_steps) - i) / array_length(fight_bar_trail_steps);
+				var alpha_value = kris_data.fight_bar_x / x_pos - 0.6;
 				draw_sprite_ext(
 					spr_pixel,
 					0,

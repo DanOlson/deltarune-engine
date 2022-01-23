@@ -9,6 +9,8 @@ hurt_sprite = spr_kris_hurt;
 down_sprite = spr_kris_down;
 action_choice = undefined;
 name = "kris";
+max_damage = 100;
+did_attack = false;
 
 sprite_index=spr_kris_idle;
 image_speed=1/2.5;
