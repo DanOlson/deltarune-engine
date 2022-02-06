@@ -1,4 +1,5 @@
 var TP=global.tp;
+show_debug_message("[DEBUG]: _phase=" + string(_phase) );
 if(_tp_old!=TP){
 	GMU_Anim_New(self,"_tp_show",0,0,_tp_old,TP-_tp_old,4);
 	GMU_Anim_New(self,"_tp_bar_line",0,0,_tp_old,TP-_tp_old,20);
@@ -14,16 +15,18 @@ if (_phase==0) {
 			alarm[2] = 1;
 		}
 	}
-	if (!instance_exists(text_typer)) {
-		var _typer=instance_create_depth(30, 379, DEPTH_UI.TEXT, text_typer);
-		_typer._shadow=true;
-		_typer.text="{scale 2}{font 1}{voice 1}{speed 2}"+string(_encounter_dialog);
-	}
 	_monster_glow=false;
 }
 
 else if (_phase == 1) {
+    _monster_glow = false;
 	if (_choosing) {
+		if (!instance_exists(text_typer)) {
+           show_debug_message("[DEBUG]: writing monster choice text");
+			var _typer=instance_create_depth(30, 379, DEPTH_UI.TEXT, text_typer);
+			_typer._shadow=true;
+			_typer.text="{scale 2}{font 1}{voice 1}{speed 2}"+string(_encounter_dialog);
+		}
 		var hero = find_next_hero(_heros);
 		if (hero != "derp") {
 			var data = variable_struct_get(hero_data, hero);
@@ -58,6 +61,7 @@ else if (_phase == 1) {
 					} else {
 						hero.action_choice = _hero_action_choice;
 						_hero_action_choice = undefined;
+                      _phase = 2;
 					}
 				}
 			}
@@ -108,9 +112,10 @@ else if (_phase==2) {
 		}
 	}
 	if (!instance_exists(text_typer)) {
+      show_debug_message("[DEBUG]: writing monster choice text");
 		var _typer=instance_create_depth(80, 378, DEPTH_UI.TEXT, text_typer);
 		_typer._shadow=false;
-		_typer.text="{scale 2}{font 2}{voice 1}{speed 2}{skippable false}{instant true}"+string(_monster_name);
+		_typer.text="{scale 2}{font 2}{voice 1}{speed 2}{skippable false}{instant true}{choice 0}   "+string(_monster_name)+"{choice `CHOICE`}{pause}{record_action_target}";
 	}
 	_monster_glow=true;
 }

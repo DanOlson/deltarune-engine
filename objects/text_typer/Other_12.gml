@@ -293,4 +293,10 @@ switch(cmd[|0]){
 		}
 		room_goto_next();
 		break;
+  case "record_action_target":
+    var hero_data = ui.find_hero(ui.no_action_choice);
+    if (hero_data) {
+      hero_data.action_target = ds_map_find_value(_map_macro,"CHOICE");
+    }
+    ui.alarm[0] = 1;
 }
